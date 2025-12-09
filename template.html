@@ -36,8 +36,8 @@
         <section>
             <h2>Mémoire</h2>
             <div>
-                <p>Total : <span id="ram_total"></span> Mo</p>
-                <p>Utilisée : <span id="ram_used"></span> Mo</p>
+                <p>Total : <span id="ram_total"></span></p>
+                <p>Utilisée : <span id="ram_used"></span></p>
                 <p>Utilisation : <span id="ram_percent"></span> %</p>
             </div>
         </section>
@@ -80,4 +80,54 @@
     </footer>
     
 </body>
+<script>
+    fetch('system_report.json')
+      .then(res => res.json())
+      .then(data => {
+        // SECTION SYSTEME
+        document.getElementById('machine_name').textContent = data.system_info.machine_name;
+        document.getElementById('os_name').textContent = data.system_info.os_system + " " + data.system_info.os_release;
+        document.getElementById('uptime').textContent = data.system_info.uptime_days + "j " + data.system_info.uptime_hours + "h";
+        document.getElementById('nb_users').textContent = data.system_info.logged_users;
+    
+        // SECTION CPU
+        document.getElementById('cpu_count').textContent = data.cpu_info.cores;
+        document.getElementById('cpu_freq').textContent = data.cpu_info.current_frequency_mhz;
+        document.getElementById('cpu_usage').textContent = data.cpu_info.cpu_usage_percent;
+    
+        // SECTION Memory
+        document.getElementById('ram_total').textContent = data.memory_info.ram_total_gb + " Go";
+        document.getElementById('ram_used').textContent = data.memory_info.ram_used_gb + " Go";
+        document.getElementById('ram_percent').textContent = data.memory_info.ram_usage_percent;
+    
+        // SECTION NETWORK
+        document.getElementById('main_ip').textContent = data.system_info.primary_ip_address;
+    
+        // SECTION TOP 3 PROCESS
+        const tbody = document.getElementById('processes_table');
+        tbody.innerHTML = "";
+        data.process_info.top_3_cpu.forEach(proc => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${proc.name}</td>
+            <td>${proc.cpu_percent}</td>
+            <td>${proc.memory_percent}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+    
+        // SECTION FILES
+        const ul = document.getElementById('file_stats');
+        ul.innerHTML = "";
+        for (const ext in data.file_analysis.file_counts_by_extension) {
+          const stats = data.file_analysis.file_counts_by_extension[ext];
+          const li = document.createElement('li');
+          li.textContent = `${ext} : ${stats.count} fichiers (${stats.percentage} %)`;
+          ul.appendChild(li);
+        }
+      })
+      .catch(error => {
+        alert("Erreur lors du chargement du rapport JSON : " + error);
+      });
+    </script>
 </html>

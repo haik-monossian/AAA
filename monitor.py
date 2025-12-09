@@ -141,7 +141,7 @@ def main():
     print("Collecte terminée. Tentative d'export JSON.")
 
     # 2. Définir le nom du fichier de sortie
-    filename = "system_report_" + datetime.now().strftime('%Y%m%d_%H%M%S') + ".json"
+    filename = "system_report.json"
     
     # 3. Écrire les données dans le fichier JSON
     try:
