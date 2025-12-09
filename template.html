@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="template.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <title>Monitoring</title>
+</head>
+<body>
+    <header>
+        <h1>Monitoring</h1>
+    </header>
+    <main>
+        <section> 
+            <h2>Système</h2>
+            <div>
+                <p>Nom de la machine : <span id="machine_name"></span></p>
+                <p>Système d'exploitation : <span id="os_name"></span></p>
+                <p>Uptime : <span id="uptime"></span></p>
+                <p>Nombre d'utilisateurs : <span id="nb_users"></span></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>CPU</h2>
+            <div>
+                <p>Nombre de cœurs : <span id="cpu_count"></span></p>
+                <p>Fréquence : <span id="cpu_freq"></span> MHz</p>
+                <p>Utilisation : <span id="cpu_usage"></span> %</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Mémoire</h2>
+            <div>
+                <p>Total : <span id="ram_total"></span> Mo</p>
+                <p>Utilisée : <span id="ram_used"></span> Mo</p>
+                <p>Utilisation : <span id="ram_percent"></span> %</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Réseau</h2>
+            <div>
+                <p>Adresse IP principale : <span id="main_ip"></span></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Top 3 des processus</h2>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processus</th>
+                            <th>CPU (%)</th>
+                            <th>Mémoire (Mo)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="processes_table">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Statistiques de fichiers</h2>
+            <div>
+                <ul id="file_stats">
+                </ul>
+            </div>
+
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+    
+</body>
+</html>
