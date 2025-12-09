@@ -1,13 +1,14 @@
 import psutil
+import time
 import platform
 import socket
 import os
-import json # NOUVEAU: Importation du module json
+import json
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any # Optionnel, pour la lisibilité
+from typing import Dict, Any
 
-# --- Fonctions pour collecter les données ---
+# --- data ---
 
 def get_cpu_info() -> Dict[str, Any]:
     """Récupère et retourne les informations sur le processeur"""
@@ -34,7 +35,7 @@ def get_system_info() -> Dict[str, Any]:
     boot_time = datetime.fromtimestamp(boot_time_ts)
     uptime = datetime.now() - boot_time
     
-    # Récupère l'adresse IP principale
+    # Ip adress
     ip = "Non disponible"
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -58,10 +59,9 @@ def get_system_info() -> Dict[str, Any]:
 def get_process_info() -> Dict[str, Any]:
     """Récupère et retourne les informations sur les processus"""
     processes = []
-    # Collecter les données de tous les processus
+    # process
     for proc in psutil.process_iter(['pid', 'name']):
         try:
-            # Mesure le CPU avec un intervalle court
             cpu = proc.cpu_percent(interval=0.1)
             mem = proc.memory_percent()
             processes.append({
@@ -72,7 +72,7 @@ def get_process_info() -> Dict[str, Any]:
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
     
-    # Tri et sélection des Top 3
+    # Top 3
     processes_cpu = sorted(processes, key=lambda x: x['cpu_percent'], reverse=True)
     processes_mem = sorted(processes, key=lambda x: x['memory_percent'], reverse=True)
     
@@ -97,7 +97,7 @@ def analyze_files(directory: str) -> Dict[str, Any]:
                 if ext in extensions:
                     extensions[ext] += 1
         
-        # Calculer les pourcentages
+        # Percentages
         stats = {}
         for ext, count in extensions.items():
             percentage = (count / total * 100) if total > 0 else 0
@@ -114,7 +114,7 @@ def analyze_files(directory: str) -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Analyse du fichier: {e}"}
 
-# --- Fonction principale et Export JSON ---
+# --- Export json---
 
 def main():
     """Fonction principale pour collecter les données et les exporter en JSON."""
@@ -123,10 +123,8 @@ def main():
     print("SURVEILLANCE SYSTÈME ET EXPORT JSON")
     print("=" * 50)
     
-    # Choisissez le dossier à analyser (Exemple: le répertoire courant)
-    directory = "." # Modifiez selon vos besoins: "/home/user/Documents", etc.
+    directory = "." # Directory to analyse
     
-    # 1. Collecter toutes les données
     print("Collecte des informations en cours...")
     
     system_data = {
@@ -140,14 +138,11 @@ def main():
     
     print("Collecte terminée. Tentative d'export JSON.")
 
-    # 2. Définir le nom du fichier de sortie
-    filename = "system_report.json"
+    filename = "/var/www/html/system_report.json" # export filename
     
-    # 3. Écrire les données dans le fichier JSON
+    # write data
     try:
         with open(filename, 'w', encoding='utf-8') as f:
-            # json.dump est la commande clé pour écrire le dictionnaire Python dans le fichier
-            # indent=4 rend le fichier JSON lisible
             json.dump(system_data, f, indent=4) 
         
         print("\n" + "=" * 50)
@@ -158,4 +153,6 @@ def main():
         print(f"❌ Erreur lors de l'écriture du fichier JSON : {e}")
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        time.sleep(30) # wait 30s
