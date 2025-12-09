@@ -65,6 +65,54 @@ bashpython3 monitor.py
 ✅ Calcul du pourcentage de chaque type de fichier
 ✅ Total des fichiers analysés
 
+==================================================
+SURVEILLANCE SYSTÈME
+==================================================
+
+=== INFORMATIONS PROCESSEUR ===
+Nombre de cœurs: 4
+Fréquence actuelle: 2400.00 MHz
+Utilisation CPU: 23.50%
+
+=== INFORMATIONS MÉMOIRE ===
+RAM utilisée: 8.45 GB
+RAM totale: 16.00 GB
+Utilisation RAM: 52.81%
+
+=== INFORMATIONS SYSTÈME ===
+Nom de la machine: ubuntu-vm
+Système d'exploitation: Linux 5.15.0
+Heure de démarrage: 2025-12-09 08:30:15
+Uptime: 2 jours, 5 heures
+Utilisateurs connectés: 1
+Adresse IP principale: 192.168.1.45
+
+=== INFORMATIONS PROCESSUS ===
+
+Top 3 processus par utilisation CPU:
+1. firefox - CPU: 15.30%
+2. gnome-shell - CPU: 8.20%
+3. python3 - CPU: 5.40%
+
+Top 3 processus par utilisation RAM:
+1. firefox - RAM: 12.45%
+2. chrome - RAM: 8.30%
+3. code - RAM: 6.20%
+
+=== ANALYSE FICHIERS (~) ===
+
+Nombre de fichiers par extension:
+.txt: 245 fichiers (35.50%)
+.py: 128 fichiers (18.55%)
+.pdf: 89 fichiers (12.90%)
+.jpg: 228 fichiers (33.05%)
+
+Total de fichiers analysés: 690
+
+==================================================
+Analyse terminée!
+==================================================
+
 👤 Auteur
 Roven Melloul
 Haik Monossian
