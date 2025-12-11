@@ -53,3 +53,10 @@ div{
     gap: 1em;
     padding: 1em;
 }
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6em;
+}
